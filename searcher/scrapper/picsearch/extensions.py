@@ -18,6 +18,9 @@ class CloseTaskExtension(object):
         return ext
 
     def spider_idle(self, spider):
+        """
+        Set tasks status 'True' when spider stops scrapping
+        """
         if spider.task_id:
             task = SpiderTask.objects.get(id=spider.task_id)
             setattr(task, SPIDER_MAPPING.get(spider.name), True)
@@ -26,6 +29,9 @@ class CloseTaskExtension(object):
 
 
 class LogEntriesExtensions(object):
+    """
+    Class for logging when different signals sends
+    """
 
     @classmethod
     def from_crawler(cls, crawler):

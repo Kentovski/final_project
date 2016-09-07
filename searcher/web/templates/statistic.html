@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Statistic</title>
 </head>
 <body>
-<h2>{{ object.query }}</h2>
-{% for image in object.item_set.all %}
-    <img src="{{ image.url }}" width="300">
+{% for task in done_tasks %}
+<div>{{ task.query }} - {{ task.amount }}</div>
 {% endfor %}
 </body>
 </html>

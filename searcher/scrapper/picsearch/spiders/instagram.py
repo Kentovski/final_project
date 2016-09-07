@@ -34,6 +34,9 @@ class InstagramImageSpider(BaseImageSpider):
 
     @staticmethod
     def _get_image_results(results):
+        """
+        Filter results of scrapping and leaves only images, delete the video
+        """
         return [result for result in results if not result['is_video']]
 
     @staticmethod
@@ -46,6 +49,9 @@ class InstagramImageSpider(BaseImageSpider):
 
     @staticmethod
     def _get_results(json_data):
+        """
+        Return results of scrapping of 'top posts' or of 'last posts'
+        """
         if USE_TOP_POSTS:
             return json_data['entry_data']['TagPage'][0]['tag']['top_posts']['nodes']
         return json_data['entry_data']['TagPage'][0]['tag']['media']['nodes']

@@ -26,7 +26,9 @@ user_agent_list = [
 
 
 class RandomUserAgentMiddleware(UserAgentMiddleware):
-
+    """
+    Set a random user-agent from user_agent_list for every request
+    """
     def __init__(self, user_agent='Scrapy'):
         super(RandomUserAgentMiddleware, self).__init__()
         self.user_agent = user_agent

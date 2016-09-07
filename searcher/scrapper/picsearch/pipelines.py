@@ -10,6 +10,9 @@ from web.models import Item, SpiderTask
 class DjangoPipeline(object):
 
     def process_item(self, item, spider):
+        """
+         Create new Item (result of scrapping)
+        """
         task = SpiderTask.objects.get(id=spider.task_id)
         dj_item = Item.objects.create(task=task, **item)
         return dj_item
