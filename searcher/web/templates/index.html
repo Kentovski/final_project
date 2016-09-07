@@ -1,0 +1,41 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Picture Searcher</title>
+    <script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+    <script src="{% static 'js/socket.js' %}"></script>
+    <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+<nav class='navbar navbar-inverse navbar-fixed-top'>
+	<div class='container'>
+    	<div class='navbar-header'>
+        	<a class='navbar-brand' href="/">Picture Searcher</a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Hi!</h1>
+        <p>This is a simple picture searcher in google, yandex and instagram. </p>
+    </div>
+</div>
+
+<div class="container">
+    <form action="{% url 'send_request' %}" method="POST" id="query_form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="input_keyword">Please enter the keyword:</label>
+            <input name="query" type="text" class="form-control" id="input_keyword">
+        </div>
+        <button type="submit" class="btn btn-default" id="submit_button">Search</button>
+    </form>
+</div>
+</body>
+</html>
