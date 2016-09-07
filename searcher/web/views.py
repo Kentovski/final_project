@@ -6,7 +6,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 
-from django.views.generic import View, TemplateView, DetailView
+from django.views.generic import View, TemplateView, DetailView, ListView
 from web.models import SpiderTask, Statistic
 
 from django.http.response import JsonResponse, Http404
@@ -76,7 +76,7 @@ class ResultsView(DetailView):
             raise Http404
 
 
-class StatisticView(DetailView):
+class StatisticView(ListView):
     """
     Statistic page view.
     """
@@ -84,12 +84,11 @@ class StatisticView(DetailView):
     context_object_name = 'done_tasks'
     template_name = 'statistic.html'
 
-
     def get_queryset(self):
         """
         Excludes any questions that aren't published yet.
         """
-        return Statistic.objects.filter(pub_date__lte=timezone.now())
+        return Statistic.objects.filter(amount__gte=0).order_by('-amount')
 
 
 class CheckTaskView(View):
@@ -100,8 +99,7 @@ class CheckTaskView(View):
 
     def get(self, request, task_id):
         """
-        Get task with task_id and checking done_time
-        :return:
+        Get from cache or creates new task and write to cache tasks query
         """
         task = SpiderTask.objects.get(id=task_id)
         loop_index = 0
@@ -139,10 +137,9 @@ class SendRequestView(View):
         try:
             task = Statistic.objects.get(query=self._query)
             task.amount += 1
+            task.save()
         except (KeyError, Statistic.DoesNotExist):
             task = Statistic.objects.create(query=self._query, amount=1)
-
-
 
     def _get_new(self):
         """

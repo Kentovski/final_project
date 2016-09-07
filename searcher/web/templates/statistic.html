@@ -1,12 +1,17 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Statistic</title>
+    <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
 </head>
 <body>
-{% for task in done_tasks %}
-<div>{{ task.query }} - {{ task.amount }}</div>
-{% endfor %}
+<table class="table table-hover">
+    <tr><td><b>Keyword</b></td><td><b>Number of searches</b></td></tr>
+    {% for task in done_tasks %}
+    <tr><td>{{ task.query }}</td><td>{{ task.amount }}</td></tr>
+    {%endfor%}
+</table>
 </body>
 </html>
