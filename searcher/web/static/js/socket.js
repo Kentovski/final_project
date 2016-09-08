@@ -11,7 +11,7 @@ $(document).ready(function(){
                 if(data.is_done === true){
                     window.location=data.results_url
                 } else {
-                   // 30 sec past (max loop)
+                    window.location=data.error_url
                 };
             },
             error: function(data) {

@@ -1,13 +1,6 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>{{ object.query }}</title>
-    <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
-</head>
-<body>
+{% extends 'base.html' %}
+{% block 'title' %}{{ object.query }}{% endblock %}
+{% block 'main' %}
 <nav class='navbar navbar-inverse'>
 	<div class='container'>
     	<div class='navbar-header'>
@@ -17,16 +10,11 @@
 </nav>
 <div class="container">
     {% for image in images %}
-    <div class="row">
-        <div class="col-md-4">
-            <a href="{{ image.image_source }}">
-                <img src={{ image.url }} width="300">
-            </a>
-            <p> Image source: {{ image.source }} </p>
-            <p>URL: <a href="{{ image.url }}">click here</a></p>
-        </div>
+    <div class="col-md-4 portfolio-item">
+        <img class="img-responsive" style="" src="{{ image.url }}">
+        <p> Image source: {{ image.source }} </p>
+        <p>URL: <a href="{{ image.url }}">click here</a></p>
     </div>
     {%endfor%}
 </div>
-</body>
-</html>
+{% endblock %}

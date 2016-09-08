@@ -1,13 +1,11 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Picture Searcher</title>
+{% block 'title' %}Picture Searcher{% endblock %}
+{% block 'sq' %}
     <script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
     <script src="{% static 'js/socket.js' %}"></script>
-    <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
-</head>
+{% endblock %}
+{% block 'main' %}
 <body>
 <nav class='navbar navbar-inverse navbar-fixed-top'>
 	<div class='container'>
@@ -32,5 +30,4 @@
         <button type="submit" class="btn btn-default" id="submit_button">Search</button>
     </form>
 </div>
-</body>
-</html>
+{% endblock %}

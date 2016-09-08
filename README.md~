@@ -15,3 +15,4 @@
                   ```.scrapper/picsearch scrapy crawl yandex```
                   ```.scrapper/picsearch scrapy crawl instagram```
 
+Ещё полностью не готов. Сегодня доделаю.

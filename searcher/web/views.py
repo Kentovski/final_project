@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.views.generic import View, TemplateView, DetailView, ListView
 from web.models import SpiderTask, Statistic
 
-from django.http.response import JsonResponse, Http404
+from django.http.response import JsonResponse, Http404, HttpResponse
 from redis import Redis
 from logger import log
 
@@ -99,7 +99,7 @@ class CheckTaskView(View):
 
     def get(self, request, task_id):
         """
-        Get from cache or creates new task and write to cache tasks query
+        Checks status of the task 30 sec
         """
         task = SpiderTask.objects.get(id=task_id)
         loop_index = 0
@@ -109,19 +109,20 @@ class CheckTaskView(View):
             loop_index += 1
             if loop_index >= self.max_loop:
                 break
-        return JsonResponse({'is_done': bool(task.done_time), 'results_url': reverse('results', args=[task.query])})
+        return JsonResponse({'is_done': bool(task.done_time), 'results_url': reverse('results', args=[task.query]),
+                             'error_url': reverse('error')})
 
 
 class SendRequestView(View):
     """
-    View class of making requests
+    View of making requests
     """
     redis_keys = ('google:search', 'yandex:search', 'instagram:search')
     key_format = '{query}::{task}'
 
     def post(self, request):
         """
-        Get keyword from request and return json with new or cached task.
+        Get from cache or creates new task and write to cache tasks query
         """
         self._query = request.POST.get('query')
         self._update_statistic()
@@ -171,3 +172,15 @@ class SendRequestView(View):
         for key in self.redis_keys:
             client.lpush(key, self.key_format.format(query=str(self._query), task=task.id))
             log.info('Sent task. Task.id=%s. Query=%s', task.id, task.query)
+
+
+class ErrorView(View):
+    """
+    Error view
+    """
+    template_name = 'statistic.html'
+
+    def get(self, request):
+        log.info('---ERROR---')
+        return HttpResponse('Sorry, something go wrong(')
+

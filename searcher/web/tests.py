@@ -5,57 +5,6 @@ from django.test import TestCase
 from web.views import IndexView, ResultsView, StatisticView, CheckTaskView, SendRequestView
 
 
-class TestIndexView(TestCase):
-    pass
-
-
-class TestResultsView(TestCase):
-
-    @mock.patch('web.views.SpiderTask')
-    @mock.patch('web.views.Redis')
-    @mock.patch('web.views.reverse')
-    def test_get(self):
-        pass
-
-    @mock.patch('web.views.SpiderTask')
-    @mock.patch('web.views.Redis')
-    @mock.patch('web.views.reverse')
-    def test_get_object(self):
-        pass
-
-    @mock.patch('web.views.SpiderTask')
-    @mock.patch('web.views.Redis')
-    @mock.patch('web.views.reverse')
-    def test_get_context_data(self):
-        pass
-
-    @mock.patch('web.views.SpiderTask')
-    @mock.patch('web.views.Redis')
-    @mock.patch('web.views.reverse')
-    def test_get_context_data(self):
-        pass
-
-    @mock.patch('web.views.SpiderTask')
-    @mock.patch('web.views.Redis')
-    @mock.patch('web.views.reverse')
-    def test_validate_object(self):
-        pass
-
-
-class TestStatisticView(TestCase):
-    pass
-
-
-class TestCheckTaskView(TestCase):
-    pass
-
-    @mock.patch('web.views.SpiderTask')
-    @mock.patch('web.views.Redis')
-    @mock.patch('web.views.reverse')
-    def test_validate_object(self):
-        pass
-
-
 class TestSendRequestView(TestCase):
 
     @mock.patch('web.views.SpiderTask')

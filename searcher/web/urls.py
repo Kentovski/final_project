@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^statistic/$', views.StatisticView.as_view(), name='statistic'),
     url(r'^send_request/', views.SendRequestView.as_view(), name='send_request'),
     url(r'^check_task/(?P<task_id>[-\w]+)/$', views.CheckTaskView.as_view(), name='check_task'),
+    url(r'^error/$', views.ErrorView.as_view(), name='error'),
 ]
